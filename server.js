@@ -2,17 +2,15 @@
 
 const express = require('express');
 
-const axios = require('axios');
+require('dotenv').config();
 
 const app = express();
-const weatherData = require('./data/weather.json');
+// const weatherData = require('./data/weather.json');
 
 const cors = require('cors');
 app.use(cors());
 
-app.get('/weatherData', (request, response) => {
-  response.json(weatherData);
-});
+app.get('/weatherData', getWeather);
 
 const PORT = 3001;
 
@@ -20,17 +18,23 @@ app.listen(PORT, () => {
   console.log(`Server started: http://localhost:${PORT}`);
 });
 
-const results = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={WEATHER_API_KEY}`, {
-  params: {
-    key: process.env.WEATHER_API_KEY,
-    lat,
-    lon,
-  }
-});
+const axios = require('axios');
 
-class Forecast {
-  constructor() {
-    this.date = ;
-    this.description = ;
-  }
+async function getWeather(request, response) {
+
+  const results = await axios.get(`https://api.openweathermap.org/data/2.5/onecall`, {
+    params: {
+      appid: process.env.WEATHER_API_KEY,
+      lat: 41.6612561,
+      lon: -91.5299106
+    }
+  });
+  response.send(results.data);
 }
+
+// class Forecast {
+//   constructor() {
+//     this.date = ;
+//     this.description = ;
+//   }
+// }
