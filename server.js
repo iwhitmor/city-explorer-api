@@ -3,9 +3,13 @@
 const express = require('express');
 
 const app = express();
+const weatherData = require('./data/weather.json');
 
-app.get('/', (request, response) => {
-  response.send('no place like home');
+const cors = require('cors');
+app.use(cors());
+
+app.get('/weatherData', (request, response) => {
+  response.json(weatherData);
 });
 
 const PORT = 3001;
