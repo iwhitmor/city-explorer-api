@@ -38,11 +38,15 @@ async function getWeather(request, response) {
   response.send(forecastObjs);
 }
 
-
+function timeToDate(dt) {
+  let date = new Date(dt*1000);
+  console.log(date);
+  return date.toISOString().substr(0,10);
+}
 
 class Forecast {
   constructor(dailyForecastObj) {
-    this.date = dailyForecastObj.dt;
+    this.date = timeToDate(dailyForecastObj.dt);
     this.description = dailyForecastObj.weather[0].description;
   }
 }
