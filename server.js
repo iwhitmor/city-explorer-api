@@ -29,12 +29,20 @@ async function getWeather(request, response) {
       lon: request.query.lon
     }
   });
-  response.send(results.data);
+
+  const dailyForecasts = results.data.daily;
+  const forecastObjs = dailyForecasts.map(day => {
+    return new Forecast(day);
+  });
+  console.log(forecastObjs);
+  response.send(forecastObjs);
 }
 
-// class Forecast {
-//   constructor() {
-//     this.date = ;
-//     this.description = ;
-//   }
-// }
+
+
+class Forecast {
+  constructor(dailyForecastObj) {
+    this.date = dailyForecastObj.dt;
+    this.description = dailyForecastObj.weather[0].description;
+  }
+}
