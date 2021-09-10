@@ -25,8 +25,8 @@ async function getWeather(request, response) {
   const results = await axios.get(`https://api.openweathermap.org/data/2.5/onecall`, {
     params: {
       appid: process.env.WEATHER_API_KEY,
-      lat: 41.6612561,
-      lon: -91.5299106
+      lat: request.query.lat,
+      lon: request.query.lon
     }
   });
   response.send(results.data);
