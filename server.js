@@ -74,6 +74,8 @@ async function getMovies(request, response) {
 class Movie {
   constructor(movieObj) {
     this.title = movieObj.title;
+    this.overview = movieObj.overview;
+    this.releaseDate = movieObj.release_date;
     this.img = movieObj.poster_path;
   }
 }
