@@ -39,9 +39,9 @@ async function getWeather(request, response) {
 }
 
 function timeToDate(dt) {
-  let date = new Date(dt*1000);
+  let date = new Date(dt * 1000);
   console.log(date);
-  return date.toISOString().substr(0,10);
+  return date.toISOString().substr(0, 10);
 }
 
 class Forecast {
@@ -49,4 +49,18 @@ class Forecast {
     this.date = timeToDate(dailyForecastObj.dt);
     this.description = dailyForecastObj.weather[0].description;
   }
+}
+
+async function getMovies(request, response) {
+
+  const results = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
+    params: {
+      api_key: process.env.MOVIE_API_KEY,
+      query: request.query.cityName
+    }
+  });
+
+  const movies = getMovies.results.title;
+  console.log(movies);
+
 }
