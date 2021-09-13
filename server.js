@@ -5,12 +5,13 @@ const express = require('express');
 require('dotenv').config();
 
 const app = express();
-// const weatherData = require('./data/weather.json');
 
 const cors = require('cors');
 app.use(cors());
 
 app.get('/weatherData', getWeather);
+
+app.get('/movieData', getMovies);
 
 const PORT = 3001;
 
@@ -56,11 +57,12 @@ async function getMovies(request, response) {
   const results = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
     params: {
       api_key: process.env.MOVIE_API_KEY,
-      query: request.query.cityName
+      query: 'cedar rapids'
     }
   });
 
-  const movies = getMovies.results.title;
+  const movies = results.data.results;
   console.log(movies);
+  response.send(movies);
 
 }
