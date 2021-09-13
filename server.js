@@ -57,7 +57,7 @@ async function getMovies(request, response) {
   const results = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
     params: {
       api_key: process.env.MOVIE_API_KEY,
-      query: 'cedar rapids'
+      query: request.query.search
     }
   });
 
