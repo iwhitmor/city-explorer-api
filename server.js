@@ -62,7 +62,17 @@ async function getMovies(request, response) {
   });
 
   const movies = results.data.results;
-  console.log(movies);
-  response.send(movies);
+  const movieObjs = movies.map(movie => {
+    return new Movie(movie);
+  });
 
+  console.log(movieObjs);
+  response.send(movieObjs);
+
+}
+
+class Movie {
+  constructor(movieObj) {
+    this.title = movieObj.results.data.results.title;
+  }
 }
